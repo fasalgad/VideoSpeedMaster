@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { width: 240px; font-family: 'Segoe UI', sans-serif; padding: 15px; background: #f4f4f9; }
+    h3 { margin-bottom: 10px; font-size: 14px; color: #333; }
+    .domain { font-size: 11px; color: #666; margin-bottom: 12px; word-break: break-all; padding: 8px; background: #e8e8ed; border-radius: 4px; }
+    .section { margin-bottom: 12px; }
+    .section-title { font-size: 10px; color: #999; text-transform: uppercase; margin-bottom: 6px; font-weight: bold; }
+    button { 
+      width: 100%; padding: 10px; border: none; border-radius: 6px; 
+      cursor: pointer; font-weight: bold; transition: 0.3s; font-size: 12px;
+    }
+    .btn-on { background: #22c55e; color: white; }
+    .btn-on:hover { background: #16a34a; }
+    .btn-off { background: #ef4444; color: white; }
+    .btn-off:hover { background: #dc2626; }
+    .btn-theme { background: #3b82f6; color: white; width: 100%; }
+    .btn-theme:hover { background: #2563eb; }
+  </style>
+</head>
+<body>
+  <h3>⚡ Speed Master</h3>
+  <div class="domain" id="domainText">Cargando...</div>
+  
+  <div class="section">
+    <div class="section-title">Control de Velocidad</div>
+    <button id="toggleBtn">Cargando...</button>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Tema</div>
+    <button id="themeBtn" class="btn-theme">🌙 Cambiar Tema</button>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

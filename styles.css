@@ -1,0 +1,147 @@
+#v-speed-panel {
+  position: fixed;
+  z-index: 2147483647;
+  backdrop-filter: blur(10px);
+  color: white;
+  padding: 15px;
+  border-radius: 12px;
+  width: 200px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,255,255,0.1);
+  cursor: move;
+  font-family: system-ui, sans-serif;
+  user-select: none;
+  font-size: 12px;
+  transition: all 0.3s ease;
+}
+
+#v-speed-panel.minimized {
+  width: auto;
+  padding: 8px;
+  background: rgba(34, 197, 94, 0.9);
+  border-radius: 50px;
+}
+
+#v-speed-panel.minimized .v-content {
+  display: none;
+}
+
+#v-speed-panel #v-minimize {
+  background: transparent !important;
+  border: none !important;
+  color: white;
+  padding: 0 !important;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+#v-speed-panel #v-minimize:hover {
+  transform: scale(1.1);
+}
+
+#v-speed-panel.minimized #v-minimize {
+  font-size: 20px;
+}
+
+#v-speed-panel.light {
+  background: rgba(255, 255, 255, 0.85);
+  color: #333;
+  border-color: rgba(0,0,0,0.1);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+}
+
+#v-speed-panel.dark {
+  background: rgba(20, 20, 20, 0.85);
+  color: white;
+  border-color: rgba(255,255,255,0.1);
+}
+
+#v-speed-panel .header {
+  font-size: 11px;
+  opacity: 0.7;
+  margin-bottom: 8px;
+  text-align: center;
+  font-weight: bold;
+}
+
+#v-speed-panel #v-val {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+#v-speed-panel input[type="range"] {
+  width: 100%;
+  cursor: pointer;
+  accent-color: #22c55e;
+  margin-bottom: 8px;
+}
+
+#v-speed-panel .presets {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+  margin-bottom: 8px;
+}
+
+#v-speed-panel .preset-btn {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: white;
+  padding: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 9px;
+  font-weight: bold;
+  transition: all 0.2s;
+}
+
+#v-speed-panel.dark .preset-btn:hover {
+  background: rgba(34, 197, 94, 0.3);
+  border-color: #22c55e;
+}
+
+#v-speed-panel.light .preset-btn:hover {
+  background: rgba(34, 197, 94, 0.2);
+  border-color: #22c55e;
+}
+
+#v-speed-panel .preset-btn.active {
+  background: #22c55e;
+  color: white;
+  border-color: #22c55e;
+}
+
+#v-speed-panel .controls {
+  display: flex;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+#v-speed-panel button {
+  flex: 1;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: white;
+  padding: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 9px;
+  transition: all 0.2s;
+  font-weight: bold;
+}
+
+#v-speed-panel button:hover {
+  background: rgba(34, 197, 94, 0.3);
+  border-color: #22c55e;
+}
+
+#v-speed-panel #v-ref {
+  margin-top: 0;
+}
+
+#v-speed-panel #v-theme {
+  margin-top: 0;
+}
