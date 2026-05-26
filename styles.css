@@ -57,11 +57,29 @@
   border-color: rgba(255,255,255,0.1);
 }
 
-#v-speed-panel .header {
+#v-speed-panel .v-header {
   font-size: 11px;
   opacity: 0.7;
   margin-bottom: 8px;
   text-align: center;
+  font-weight: bold;
+}
+
+#v-speed-panel .v-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+#v-speed-panel #v-number {
+  width: 64px;
+  padding: 4px 6px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: transparent;
+  color: inherit;
   font-weight: bold;
 }
 
@@ -114,23 +132,48 @@
   border-color: #22c55e;
 }
 
-#v-speed-panel .controls {
+#v-speed-panel .v-controls {
   display: flex;
-  gap: 5px;
+  gap: 6px;
   margin-top: 10px;
+  justify-content: center;
+  align-items: center;
 }
 
 #v-speed-panel button {
-  flex: 1;
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.2);
-  color: white;
-  padding: 5px;
-  border-radius: 4px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: inherit;
+  padding: 6px 8px;
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 9px;
-  transition: all 0.2s;
-  font-weight: bold;
+  font-size: 11px;
+  transition: all 0.15s;
+  font-weight: 700;
+}
+
+/* Tres botones compactos en una fila */
+#v-speed-panel .v-controls > button {
+  flex: 0 0 44px;
+  width: 44px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Escanear y Tema en la misma fila */
+#v-speed-panel .v-small-controls {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+  justify-content: space-between;
+}
+
+#v-speed-panel .v-small-controls > button {
+  flex: 1 1 48%;
+  padding: 6px;
+  font-size: 11px;
 }
 
 #v-speed-panel button:hover {

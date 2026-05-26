@@ -29,16 +29,35 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       });
     };
+
+    // Botón SCAN: detectar videos y activar automáticamente
+    document.getElementById('scanBtn').onclick = () => {
+      chrome.tabs.sendMessage(tabs[0].id, { action: 'hasVideos' }, (response) => {
+        if (chrome.runtime.lastError) {
+          alert('No se pudo detectar videos en esta pestaña');
+          return;
+        }
+
+        if (response && response.hasVideos) {
+          chrome.storage.sync.set({ [url]: true }, () => {
+            updateUI(true);
+            chrome.tabs.reload(tabs[0].id);
+          });
+        } else {
+          alert('No se encontraron videos en esta página');
+        }
+      });
+    };
   });
 
   function updateUI(active) {
     const btn = document.getElementById('toggleBtn');
-    btn.innerText = active ? "✓ Desactivar en esta web" : "✗ Activar en esta web";
+    btn.innerText = active ? "Desactivar en esta web" : "Activar en esta web";
     btn.className = active ? "btn-off" : "btn-on";
   }
 
   function updateThemeBtn(theme) {
     const btn = document.getElementById('themeBtn');
-    btn.innerText = theme === 'dark' ? '☀️ Cambiar a Oscuro' : '🌙 Cambiar a Claro';
+    btn.innerText = theme === 'dark' ? 'Cambiar a Oscuro' : 'Cambiar a Claro';
   }
 });
