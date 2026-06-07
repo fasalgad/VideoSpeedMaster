@@ -29,25 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       });
     };
-
-    // Botón SCAN: detectar videos y activar automáticamente
-    document.getElementById('scanBtn').onclick = () => {
-      chrome.tabs.sendMessage(tabs[0].id, { action: 'hasVideos' }, (response) => {
-        if (chrome.runtime.lastError) {
-          alert('No se pudo detectar videos en esta pestaña');
-          return;
-        }
-
-        if (response && response.hasVideos) {
-          chrome.storage.sync.set({ [url]: true }, () => {
-            updateUI(true);
-            chrome.tabs.reload(tabs[0].id);
-          });
-        } else {
-          alert('No se encontraron videos en esta página');
-        }
-      });
-    };
   });
 
   function updateUI(active) {

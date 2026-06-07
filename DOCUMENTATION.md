@@ -10,18 +10,17 @@ Video Speed Master Pro es una extensión de Chrome/Edge que permite controlar la
 - `popup.html` — interfaz del popup.
 - `popup.js` — lógica del popup.
 - `content.js` — panel in-page y aplicación de velocidad.
-- `message-listener.js` — mensajes de detección de videos.
 - `styles.css` — estilos del panel y temas.
 - `docs/privacy-policy.html` — política de privacidad.
 - `icon.png` — icono de la extensión.
 
 ## Cómo funciona
 
-1. El navegador inyecta `content.js` y `message-listener.js` en las páginas definidas por `matches: ["<all_urls>"]`.
+1. El navegador inyecta `content.js` en las páginas definidas por `matches: ["<all_urls>"]`.
 2. `content.js` comprueba `chrome.storage.sync` para determinar si el dominio actual está activado.
 3. Si está activado, se inicializa el panel in-page con controles de velocidad, reproducción y tema.
-4. El popup permite activar/desactivar el dominio, alternar tema y escanear videos en la pestaña actual.
-5. El popup envía mensajes al content script para detectar videos y recarga la pestaña tras cambios clave.
+4. El popup permite activar/desactivar el dominio y alternar tema.
+5. El popup actualiza `chrome.storage.sync` y recarga la pestaña tras cambios clave.
 
 ## Características
 
@@ -46,7 +45,7 @@ Video Speed Master Pro es una extensión de Chrome/Edge que permite controlar la
 - `action.default_popup`: `popup.html`
 - `content_scripts`:
   - `matches`: `[`"<all_urls>"`]`
-  - `js`: `content.js`, `message-listener.js`
+  - `js`: `content.js`
   - `css`: `styles.css`
   - `all_frames`: true
 
@@ -82,17 +81,12 @@ Funciones principales:
   - Minimizar: Toggle de clase `minimized` y persiste en `hostname_minimized`.
   - Drag & Drop: Detecta mousedown/move/up, evita arrastrar desde inputs/buttons, guarda posición en `hostname_pos`.
 
-### `message-listener.js`
-
-- Escucha mensajes con `chrome.runtime.onMessage`.
-- Si `request.action === 'hasVideos'`, responde `{ hasVideos: true|false }`.
-
 ### `popup.js`
 
 Funciones y lógica:
 - `DOMContentLoaded`
   - Obtiene la pestaña activa, extrae hostname y valida estado almacenado.
-  - Inicializa UI (botón toggle, botón tema, botón scan).
+  - Inicializa UI (botón toggle, botón tema).
   
 - Botones principales:
   - **Activar/desactivar dominio** (`toggleBtn`)
@@ -105,11 +99,6 @@ Funciones y lógica:
     - Recarga pestaña para sincronizar con content.js.
     - Actualiza texto del botón para mostrar tema actual.
   
-  - **Escanear videos** (`scanBtn`)
-    - Envía mensaje `{ action: 'hasVideos' }` al content script.
-    - Si se encuentran videos, activa el dominio automáticamente.
-    - Si no hay videos, muestra alerta al usuario.
-    - Recarga pestaña tras activación exitosa.
 
 - Helpers:
   - `updateUI(active)` — actualiza botón toggle según estado.
@@ -143,46 +132,6 @@ Estilos principales:
 - Hover en botones: fondo verde 30%, borde verde.
 - Transiciones suaves (0.15s-0.3s) en todos los elementos.
 - Cursor: move en panel, pointer en botones e inputs.
-
-### `options.html`
-
-- Página stub de opciones (actualmente no funcional).
-- Contiene documentación sobre cómo activarla en `manifest.json`.
-- Futura página de configuración avanzada.
-- **Nota:** No está registrada en `manifest.json` actualmente; requiere sección `options_ui` para funcionar.
-
-**Para activar:**
-```json
-"options_ui": {
-  "page": "options.html",
-  "open_in_tab": true
-}
-```
-
-## Mensajería y API
-
-### Mensajes actuales
-
-- Popup → Content:
-  - `{ action: 'hasVideos' }`
-- Content → Popup:
-  - `{ hasVideos: boolean }`
-
-### Extensión sugerida
-
-- `{ action: 'setSpeed', speed: number }`
-- `{ action: 'getState' }`
-
-Ejemplo de listener recomendado:
-
-```js
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.action === 'setSpeed') {
-    applySpeedToAllVideos(request.speed);
-    sendResponse({ ok: true });
-  }
-});
-```
 
 ## Persistencia y alcance
 
@@ -256,7 +205,7 @@ Checklist:
 
 ### Flujo de inicialización
 
-1. Navegador carga página y ejecuta content.js y message-listener.js.
+1. Navegador carga página y ejecuta content.js.
 2. `tryInitPanel()` consulta storage para verificar si el hostname está activado.
 3. Si está activado:
    - `initControl()` crea el DOM del panel.
@@ -293,7 +242,6 @@ Implementado con mouse events:
 
 ## Mejoras futuras
 
-- agregar página de opciones real con `options_ui`
 - restringir `content_scripts.matches` a hosts concretos
 - ampliar mensajería con comandos como `setSpeed`
 - agregar historial de configuración por sitio
