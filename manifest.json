@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Video Speed Master Pro",
-  "version": "1.0.1",
+  "version": "1.2.1",
   "description": "Controla la velocidad de reproducción de videos por dominio con rango 0.25x a 3x, temas claro/oscuro",
   "permissions": ["storage", "activeTab"],
   "action": {
